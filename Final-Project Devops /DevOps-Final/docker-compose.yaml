@@ -1,0 +1,37 @@
+version: '3'
+services:
+  ci-server:
+    build: ./ci-server
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/events
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: events
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
+  tester:
+    build: ./tester
+    depends_on:
+      - ci-server
+    environment:
+      TEST_URL: http://ci-server:8080
+
+
+

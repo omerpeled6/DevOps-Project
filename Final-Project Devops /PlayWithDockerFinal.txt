@@ -1,0 +1,11 @@
+Final project:  on the project
+docker login
+userName
+Password
+
+העברת לזיפ ופתיחה שלו
+unzip DevOps-FinalD.zip
+cd DevOps-FinalD
+
+docker-compose build
+docker-compose up
